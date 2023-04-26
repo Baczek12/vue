@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="app">
+<!--    {{ message }} &lt;!&ndash; {{  }} &#45;&#45; interpolation. this is output our variable from vue &ndash;&gt;-->
+<!--    {{ user }}-->
+
+<!--    <button v-on:click="message = 'My user, '">Change name!</button>-->
+<!--    <input type="text" placeholder="Enter name..." v-model="name">-->
+<!--    <p>Your name: {{ name }}</p>-->
+
+    <div class="container pt-5">
+        <div class="card center">
+            <h1>Counter: {{ counter < 0 ? 'Nie może byc mniej zero!' : counter }}</h1>
+            <div>
+                <button class="btn primary" v-on:click="counter++">+</button>
+                <button class="btn danger" v-on:click="incriment">-</button>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <div class="card">
+            <h1>{{ title }}</h1>
+            <div class="form-control">
+                <input type="text" :placeholder="placeholder" v-model="noteTitle">
+            </div>
+            <button class="btn" @click="addNote">Add</button>
+            <hr />
+            <h1>Notes:</h1>
+            <h3 v-for="(item, idx) in notes" :key="item.id">{{ idx + 1 }}. {{ item.title }}</h3>
+        </div>
+    </div>
+
+</div>
+
+<script type="module">
+  import { createApp } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js'
+
+  createApp({
+    data() {
+      return {
+        counter: 0,
+        title: 'My project!',
+        placeholder: 'Enter your note title...',
+        notes: [
+          { id: 0, title: 'Go to shop', status: 'ready' },
+          { id: 1, title: 'Learn Javascript', status: 'ready' },
+          { id: 2, title: 'Learn Vue', status: 'progress' },
+        ],
+        noteTitle:""
+        // message: 'Hello Vue, ',   // create a variable vue.
+        // user: 'Ivan Vaskovich',
+        // name: ''
+      }
+    },
+    methods: {
+        addNote() {
+            if (this.noteTitle !== '') {    
+                this.notes.push({title: this.noteTitle})
+                this.noteTitle = '';
+            }
+        },
+        incriment() {
+            if(this.counter >=  0) this.counter-- 
+        }
+    }
+  }).mount('#app') // rendering our application in wrapper #app
+
+</script>
+
+</body>
+</html>
